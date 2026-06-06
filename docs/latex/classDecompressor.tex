@@ -1,0 +1,86 @@
+\doxysection{Decompressor Class Reference}
+\hypertarget{classDecompressor}{}\label{classDecompressor}\index{Decompressor@{Decompressor}}
+
+
+Derived from \doxylink{classEncoder}{Encoder}, manages the decompression of an archive.  
+
+
+
+
+{\ttfamily \+\#include $<$decompressor.\+hpp$>$}
+
+Inheritance diagram for Decompressor:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classDecompressor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classDecompressor_a039563ed5c8d5e890fb117fda1e16d03}{Decompressor}} (const std::\+string \&in, const std::\+string \&out)
+\begin{DoxyCompactList}\small\item\em Initializes streams and reads the size of an original file. \end{DoxyCompactList}\item 
+\Hypertarget{classDecompressor_ab700accb9dbfbac974ecca662bc6ce53}\label{classDecompressor_ab700accb9dbfbac974ecca662bc6ce53} 
+void {\bfseries decompress} ()
+\begin{DoxyCompactList}\small\item\em Decompresses previously compressed file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{classEncoder}{Encoder}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classEncoder_a27cd2bc619b417554c1cc831d8e620d8}{Encoder}} (std::\+ifstream \&in, std::\+ofstream \&out)
+\begin{DoxyCompactList}\small\item\em Constructs an \doxylink{classEncoder}{Encoder}. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classEncoder_a9b7e3dcd4cbc100f51980090e85ba13a}{encode}} (bool bit)
+\begin{DoxyCompactList}\small\item\em Encodes a single bit into the output stream. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classEncoder_a24519ba11219da756f1f0db96d9a0290}{decode}} ()
+\begin{DoxyCompactList}\small\item\em Decodes a single bit from the input file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \doxymbox{\hyperlink{classEncoder}{Encoder}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classPredictor}{Predictor}} {\bfseries predictor}
+\item 
+uint64\+\_\+t {\bfseries low} = 0
+\item 
+uint64\+\_\+t {\bfseries high} = 0x\+FFFFFFFFFFFFFFFF
+\item 
+uint64\+\_\+t {\bfseries current} = 0
+\item 
+std::\+ifstream \& {\bfseries input}
+\item 
+std::\+ofstream \& {\bfseries output}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Derived from \doxylink{classEncoder}{Encoder}, manages the decompression of an archive. 
+
+\label{doc-constructors}
+\Hypertarget{classDecompressor_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classDecompressor_a039563ed5c8d5e890fb117fda1e16d03}\index{Decompressor@{Decompressor}!Decompressor@{Decompressor}}
+\index{Decompressor@{Decompressor}!Decompressor@{Decompressor}}
+\doxysubsubsection{\texorpdfstring{Decompressor()}{Decompressor()}}
+{\footnotesize\ttfamily \label{classDecompressor_a039563ed5c8d5e890fb117fda1e16d03} 
+Decompressor::\+\+Decompressor (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{in}{, }\item[{const std::\+string \&}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Initializes streams and reads the size of an original file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & Path to the compressed input file. \\
+\hline
+{\em out} & Path to the output decompressed file. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std::\+runtime\+\_\+error} & If files cannot be opened. \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+src/\+\doxymbox{\hyperlink{decompressor_8hpp}{decompressor.\+hpp}}\item 
+src/\+\doxymbox{\hyperlink{decompressor_8cpp}{decompressor.\+cpp}}\end{DoxyCompactItemize}
