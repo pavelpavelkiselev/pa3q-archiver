@@ -1,0 +1,62 @@
+\doxysection{Predictor Class Reference}
+\hypertarget{classPredictor}{}\label{classPredictor}\index{Predictor@{Predictor}}
+
+
+Estimates the probability of the next bit being 0 or 1.  
+
+
+
+
+{\ttfamily \+\#include $<$predictor.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \doxymbox{\hyperlink{classPredictor_a148aca1754dea02e5412eead4481fab9}{next\+\_\+bit\+\_\+probability}} () const
+\begin{DoxyCompactList}\small\item\em Predicts the probability that the next bit will be 0. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classPredictor_a580a896551ebf1a07f49c9fdb6c5e766}{update\+\_\+model}} (bool bit)
+\begin{DoxyCompactList}\small\item\em Updates the context models and neural network weights. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Estimates the probability of the next bit being 0 or 1. 
+
+The \doxylink{classPredictor}{Predictor} uses 3 context models (order-\/0, order-\/1, Order-\/2) and mixes their predictions using a stretch/\+squash logistic regression model updated dynamically via gradient descent. 
+
+\label{doc-func-members}
+\Hypertarget{classPredictor_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classPredictor_a148aca1754dea02e5412eead4481fab9}\index{Predictor@{Predictor}!next\_bit\_probability@{next\_bit\_probability}}
+\index{next\_bit\_probability@{next\_bit\_probability}!Predictor@{Predictor}}
+\doxysubsubsection{\texorpdfstring{next\_bit\_probability()}{next\_bit\_probability()}}
+{\footnotesize\ttfamily \label{classPredictor_a148aca1754dea02e5412eead4481fab9} 
+uint64\+\_\+t Predictor::\+next\+\_\+bit\+\_\+probability (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Predicts the probability that the next bit will be 0. 
+
+\begin{DoxyReturn}{Returns}
+A scaled integer probability at \+[0; 2\texorpdfstring{$^\wedge$}{\string^}64). 
+\end{DoxyReturn}
+\Hypertarget{classPredictor_a580a896551ebf1a07f49c9fdb6c5e766}\index{Predictor@{Predictor}!update\_model@{update\_model}}
+\index{update\_model@{update\_model}!Predictor@{Predictor}}
+\doxysubsubsection{\texorpdfstring{update\_model()}{update\_model()}}
+{\footnotesize\ttfamily \label{classPredictor_a580a896551ebf1a07f49c9fdb6c5e766} 
+void Predictor::\+update\+\_\+model (\begin{DoxyParamCaption}\item[{bool}]{bit}{}\end{DoxyParamCaption})}
+
+
+
+Updates the context models and neural network weights. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bit} & The actual bit that was exctracted. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+src/\+\doxymbox{\hyperlink{predictor_8hpp}{predictor.\+hpp}}\item 
+src/\+\doxymbox{\hyperlink{predictor_8cpp}{predictor.\+cpp}}\end{DoxyCompactItemize}
