@@ -1,0 +1,25 @@
+\doxysection{compressor.\+hpp}
+\hypertarget{compressor_8hpp_source}{}\label{compressor_8hpp_source}\index{src/compressor.hpp@{src/compressor.hpp}}
+\doxymbox{\hyperlink{compressor_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{encoder_8hpp}{encoder.hpp}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classCompressor_a7a0970826ce7e57f350ba45775547ec1}{Compressor}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{classEncoder_a27cd2bc619b417554c1cc831d8e620d8}{Encoder}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ std::ifstream\ input\_file;}
+\DoxyCodeLine{00018\ \ \ std::ofstream\ output\_file;}
+\DoxyCodeLine{00019\ \ \ uint64\_t\ file\_size;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \doxymbox{\hyperlink{classCompressor_a7a0970826ce7e57f350ba45775547ec1}{Compressor}}(\textcolor{keyword}{const}\ std::string\&\ in,\ \textcolor{keyword}{const}\ std::string\&\ out);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classCompressor_a9388ff9adcf177d4bab1cd35c5300bb8}{compress}}();}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+
+\end{DoxyCode}
