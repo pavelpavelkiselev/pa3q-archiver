@@ -5,7 +5,7 @@
 
 #include "predictor.hpp"
 
-uint64_t Predictor::next_bit_probability() const {
+uint32_t Predictor::next_bit_probability() const {
   const long double p0_order0 =
       static_cast<long double>(count0[context][0] + 1) /
       (count0[context][0] + count0[context][1] + 2);
@@ -23,13 +23,13 @@ uint64_t Predictor::next_bit_probability() const {
   const long double x = w0 * s0 + w1 * s1 + w2 * s2;
   long double mixed_p0 = squash(x);
 
-  if (mixed_p0 < 0.00001) mixed_p0 = 0.00001;
-  if (mixed_p0 > 0.99999) mixed_p0 = 0.99999;
+  if (mixed_p0 < 0.00001) { mixed_p0 = 0.00001; }
+  if (mixed_p0 > 0.99999) { mixed_p0 = 0.99999; }
 
-  return static_cast<uint64_t>(mixed_p0 * 18446744073709551615.0);
+  return static_cast<uint32_t>(mixed_p0 * 4294967295.0);
 }
 
-void Predictor::update_model(bool bit) {
+void Predictor::update_model(const bool bit) {
   const long double p0_order0 =
       static_cast<long double>(count0[context][0] + 1) /
       (count0[context][0] + count0[context][1] + 2);
@@ -55,34 +55,24 @@ void Predictor::update_model(bool bit) {
   w1 += learning_rate * error * s1;
   w2 += learning_rate * error * s2;
 
-  auto clamp_w = [](long double w) -> long double {
-    if (w < -10.0L) {
-      return -10.0L;
-    }
-    if (w > 10.0L) {
-      return 10.0L;
-    }
-    return w;
-  };
-
   w0 = clamp_w(w0);
   w1 = clamp_w(w1);
   w2 = clamp_w(w2);
 
   count0[context][bit] += 1;
-  if (count0[context][0] + count0[context][1] >= 0xFFFF) {
+  if ((count0[context][0] + count0[context][1] + 2) >= 0xFFFFFFFF) {
     count0[context][0] /= 2;
     count0[context][1] /= 2;
   }
 
   count1[prev1][context][bit] += 1;
-  if (count1[prev1][context][0] + count1[prev1][context][1] >= 0xFFFF) {
+  if ((count1[prev1][context][0] + count1[prev1][context][1] + 2) >= 0xFFFFFFFF) {
     count1[prev1][context][0] /= 2;
     count1[prev1][context][1] /= 2;
   }
 
   count2[prev2][context][bit] += 1;
-  if (count2[prev2][context][0] + count2[prev2][context][1] >= 0xFFFF) {
+  if ((count2[prev2][context][0] + count2[prev2][context][1] + 2) >= 0xFFFFFFFF) {
     count2[prev2][context][0] /= 2;
     count2[prev2][context][1] /= 2;
   }
