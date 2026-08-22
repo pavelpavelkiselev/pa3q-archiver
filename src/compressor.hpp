@@ -16,7 +16,7 @@ class Compressor : public Encoder {
 private:
   std::ifstream input_file;
   std::ofstream output_file;
-  uint64_t file_size;
+  uint64_t file_size = 0;
 
 public:
   /**
