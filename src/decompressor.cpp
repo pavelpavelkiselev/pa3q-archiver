@@ -23,7 +23,7 @@ Decompressor::Decompressor(const std::string& in, const std::string& out)
     throw std::runtime_error("Failed to read file size header from an archive.");
   }
 
-  for (short i = 0; i < 8; i++) {
+  for (short i = 0; i < 4; i++) {
     int c = input_file.get();
     if (c == EOF) {
       c = 0;
@@ -33,7 +33,7 @@ Decompressor::Decompressor(const std::string& in, const std::string& out)
 }
 
 void Decompressor::decompress() {
-  for (uint64_t i = 0; (i < file_size) and (i != 0xFFFFFFFFFFFFFFFF); i++) {
+  for (uint64_t i = 0; i < file_size; i++) {
     int c = 1;
     while (c < 0x100) {
       c <<= 1;
