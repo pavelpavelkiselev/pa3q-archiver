@@ -2,11 +2,11 @@ CXX = g++
 
 MODE ?= release
 
-CXXFLAGS_RELEASE = -std=gnu++20 -Wall -Wextra -Werror -Ofast -flto=auto -static -s -fomit-frame-pointer \
+CXXFLAGS_RELEASE = -std=c++20 -Wall -Wextra -Wpedantic -Werror -O3 -flto=auto -static -s -fomit-frame-pointer \
     -fno-stack-protector -fno-stack-limit -fno-semantic-interposition -march=native -mtune=native
 
 CXXFLAGS_DEBUG   = -std=c++20 -g3 -fsanitize=address,undefined \
-    -Wall -Wextra -Werror -O0 -fno-omit-frame-pointer -fanalyzer
+    -Wall -Wextra -Wpedantic -Werror -O0 -fno-omit-frame-pointer -fanalyzer
 
 ifeq ($(MODE), debug)
     CXXFLAGS = $(CXXFLAGS_DEBUG)
@@ -45,7 +45,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 
 test: prepare $(CORE_OBJS)
 	$(CXX) $(CXXFLAGS) -I$(SRC_DIR) $(TEST_DIR)/tests.cpp $(CORE_OBJS) -lgtest -lgtest_main -lpthread -o $(TEST_TARGET)
-	@echo "================ RUNNING TESTS ================"
+	@echo "==== RUNNING TESTS ===="
 	@$(TEST_TARGET)
 
 clean:

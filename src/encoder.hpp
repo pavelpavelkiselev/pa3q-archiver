@@ -16,9 +16,9 @@
 class Encoder {
 protected:
   Predictor predictor;
-  uint64_t low = 0;
-  uint64_t high = 0xFFFFFFFFFFFFFFFF;
-  uint64_t current = 0;
+  uint32_t low = 0;
+  uint32_t high = 0xFFFFFFFF;
+  uint32_t current = 0;
   std::ifstream& input;
   std::ofstream& output;
 
@@ -34,7 +34,7 @@ public:
    * @brief Encodes a single bit into the output stream.
    * @param bit The bit to encode to a an output file.
    */
-  void encode(bool bit);
+  void encode(const bool bit);
 
   /**
    * @brief Decodes a single bit from the input file.
