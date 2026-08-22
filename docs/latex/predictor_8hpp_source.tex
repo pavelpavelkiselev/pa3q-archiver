@@ -1,0 +1,60 @@
+\doxysection{predictor.\+hpp}
+\hypertarget{predictor_8hpp_source}{}\label{predictor_8hpp_source}\index{src/predictor.hpp@{src/predictor.hpp}}
+\doxymbox{\hyperlink{predictor_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classPredictor}{Predictor}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ uint16\_t\ context\ =\ 1;}
+\DoxyCodeLine{00023\ \ \ uint8\_t\ prev1\ =\ 0;}
+\DoxyCodeLine{00024\ \ \ uint16\_t\ prev2\ =\ 0;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ w0\ =\ 1.0;}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ w1\ =\ 1.0;}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ w2\ =\ 1.0;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ uint64\_t\ count0[256][2]\ =\ \{0\};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ std::vector<std::vector<std::vector<uint64\_t>>>\ count1\ =}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ std::vector<std::vector<std::vector<uint64\_t>>>(}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ 256,\ std::vector<std::vector<uint64\_t>>(}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 256,\ std::vector<uint64\_t>(2,\ 0)));}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ std::vector<std::vector<std::vector<uint64\_t>>>\ count2\ =}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ std::vector<std::vector<std::vector<uint64\_t>>>(}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ 65536,\ std::vector<std::vector<uint64\_t>>(}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 256,\ std::vector<uint64\_t>(2,\ 0)));}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ stretch(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ p)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ std::log(p\ /\ (1.0\ -\/\ p));}
+\DoxyCodeLine{00049\ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ squash(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ x)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ /\ (1.0\ +\ std::exp(-\/x));}
+\DoxyCodeLine{00058\ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ clamp\_p(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ p)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{if}\ (p\ <\ 0.00005)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.00005;}
+\DoxyCodeLine{00068\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (p\ >\ 0.99995)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.99995;}
+\DoxyCodeLine{00070\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ p;}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00080\ \ \ uint64\_t\ \doxymbox{\hyperlink{classPredictor_a148aca1754dea02e5412eead4481fab9}{next\_bit\_probability}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classPredictor_a580a896551ebf1a07f49c9fdb6c5e766}{update\_model}}(\textcolor{keywordtype}{bool}\ bit);}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+
+\end{DoxyCode}
