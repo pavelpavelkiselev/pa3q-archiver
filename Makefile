@@ -2,11 +2,13 @@ CXX = g++
 
 MODE ?= release
 
-CXXFLAGS_RELEASE = -std=c++20 -Wall -Wextra -Wpedantic -Werror -O3 -flto=auto -static -s -fomit-frame-pointer \
+CXXFLAGS_DEFAULT = -std=c++20 -Wall -Wextra -Wpedantic -Werror -fno-fast-math -ffp-contract=off
+
+CXXFLAGS_RELEASE = $(CXXFLAGS_DEFAULT) -O3 -flto=auto -static -s -fomit-frame-pointer \
     -fno-stack-protector -fno-stack-limit -fno-semantic-interposition -march=native -mtune=native
 
-CXXFLAGS_DEBUG   = -std=c++20 -g3 -fsanitize=address,undefined \
-    -Wall -Wextra -Wpedantic -Werror -O0 -fno-omit-frame-pointer -fanalyzer
+CXXFLAGS_DEBUG   = $(CXXFLAGS_DEFAULT) -O0 -g3 -fanalyzer -fsanitize=address,undefined \
+    -fno-omit-frame-pointer
 
 ifeq ($(MODE), debug)
     CXXFLAGS = $(CXXFLAGS_DEBUG)

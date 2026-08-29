@@ -19,6 +19,10 @@ Compressor::Compressor(const std::string& in, const std::string& out)
     throw std::runtime_error("Could not open output file for writing: " + out);
   }
 
+  if (std::filesystem::file_size(in) > 0xFFFFFFFFFFFFFFFF) {
+    throw std::runtime_error("Input file's size is too large: (2^64)-1 bytes max.");
+  }
+
   try {
     file_size = std::filesystem::file_size(in);
   } catch (const std::filesystem::filesystem_error& e) {
