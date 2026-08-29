@@ -9,7 +9,7 @@ Handles the arithmetic (range) encoding and decoding.
 
 {\ttfamily \+\#include $<$encoder.\+hpp$>$}
 
-Inheritance diagram for Encoder:\+\begin{figure}[H]
+Inheritance diagram for Encoder:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{classEncoder}
@@ -20,7 +20,7 @@ Inheritance diagram for Encoder:\+\begin{figure}[H]
 \item 
 \doxymbox{\hyperlink{classEncoder_a27cd2bc619b417554c1cc831d8e620d8}{Encoder}} (std::\+ifstream \&in, std::\+ofstream \&out)
 \begin{DoxyCompactList}\small\item\em Constructs an \doxylink{classEncoder}{Encoder}. \end{DoxyCompactList}\item 
-void \doxymbox{\hyperlink{classEncoder_a9b7e3dcd4cbc100f51980090e85ba13a}{encode}} (bool bit)
+void \doxymbox{\hyperlink{classEncoder_a795d313bf97d55cde77d62a36fec5a38}{encode}} (const bool bit)
 \begin{DoxyCompactList}\small\item\em Encodes a single bit into the output stream. \end{DoxyCompactList}\item 
 bool \doxymbox{\hyperlink{classEncoder_a24519ba11219da756f1f0db96d9a0290}{decode}} ()
 \begin{DoxyCompactList}\small\item\em Decodes a single bit from the input file. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -30,14 +30,14 @@ bool \doxymbox{\hyperlink{classEncoder_a24519ba11219da756f1f0db96d9a0290}{decode
 \Hypertarget{classEncoder_a2b1d730ec2908fcc61ad5b122fa71eb3}\label{classEncoder_a2b1d730ec2908fcc61ad5b122fa71eb3} 
 \doxymbox{\hyperlink{classPredictor}{Predictor}} {\bfseries predictor}
 \item 
-\Hypertarget{classEncoder_a52052230f33af83e1213f71f5ba543f5}\label{classEncoder_a52052230f33af83e1213f71f5ba543f5} 
-uint64\+\_\+t {\bfseries low} = 0
+\Hypertarget{classEncoder_a8a8711a152204cfeca506e29d45a200d}\label{classEncoder_a8a8711a152204cfeca506e29d45a200d} 
+uint32\+\_\+t {\bfseries low} = 0
 \item 
-\Hypertarget{classEncoder_ac601f4b6d956d098fd1a84b4bdec74a6}\label{classEncoder_ac601f4b6d956d098fd1a84b4bdec74a6} 
-uint64\+\_\+t {\bfseries high} = 0x\+FFFFFFFFFFFFFFFF
+\Hypertarget{classEncoder_a7a63a2f906f7338654ab8f7b122efb7f}\label{classEncoder_a7a63a2f906f7338654ab8f7b122efb7f} 
+uint32\+\_\+t {\bfseries high} = 0x\+FFFFFFFF
 \item 
-\Hypertarget{classEncoder_a29d6108d94b61d68b49cfca9792e1178}\label{classEncoder_a29d6108d94b61d68b49cfca9792e1178} 
-uint64\+\_\+t {\bfseries current} = 0
+\Hypertarget{classEncoder_aa796f046f17c70b39613bbccbeda8364}\label{classEncoder_aa796f046f17c70b39613bbccbeda8364} 
+uint32\+\_\+t {\bfseries current} = 0
 \item 
 \Hypertarget{classEncoder_a1f4c63b5642936a42503580bdcef406c}\label{classEncoder_a1f4c63b5642936a42503580bdcef406c} 
 std::\+ifstream \& {\bfseries input}
@@ -50,7 +50,7 @@ std::\+ofstream \& {\bfseries output}
 \doxysubsection{Detailed Description}
 Handles the arithmetic (range) encoding and decoding. 
 
-\label{doc-constructors}
+\label{classEncoder_doc-constructors}
 \Hypertarget{classEncoder_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classEncoder_a27cd2bc619b417554c1cc831d8e620d8}\index{Encoder@{Encoder}!Encoder@{Encoder}}
@@ -72,7 +72,7 @@ Constructs an \doxylink{classEncoder}{Encoder}.
 \end{DoxyParams}
 
 
-\label{doc-func-members}
+\label{classEncoder_doc-func-members}
 \Hypertarget{classEncoder_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classEncoder_a24519ba11219da756f1f0db96d9a0290}\index{Encoder@{Encoder}!decode@{decode}}
@@ -88,11 +88,11 @@ Decodes a single bit from the input file.
 \begin{DoxyReturn}{Returns}
 The decoded bool bit. 
 \end{DoxyReturn}
-\Hypertarget{classEncoder_a9b7e3dcd4cbc100f51980090e85ba13a}\index{Encoder@{Encoder}!encode@{encode}}
+\Hypertarget{classEncoder_a795d313bf97d55cde77d62a36fec5a38}\index{Encoder@{Encoder}!encode@{encode}}
 \index{encode@{encode}!Encoder@{Encoder}}
 \doxysubsubsection{\texorpdfstring{encode()}{encode()}}
-{\footnotesize\ttfamily \label{classEncoder_a9b7e3dcd4cbc100f51980090e85ba13a} 
-void Encoder::\+encode (\begin{DoxyParamCaption}\item[{bool}]{bit}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classEncoder_a795d313bf97d55cde77d62a36fec5a38} 
+void Encoder::\+encode (\begin{DoxyParamCaption}\item[{const bool}]{bit}{}\end{DoxyParamCaption})}
 
 
 
@@ -105,7 +105,7 @@ Encodes a single bit into the output stream.
 \end{DoxyParams}
 
 
-The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-src/\+\doxymbox{\hyperlink{encoder_8hpp}{encoder.\+hpp}}\item 
-src/\+\doxymbox{\hyperlink{encoder_8cpp}{encoder.\+cpp}}\end{DoxyCompactItemize}
+src/\doxymbox{\hyperlink{encoder_8hpp}{encoder.\+hpp}}\item 
+src/\doxymbox{\hyperlink{encoder_8cpp}{encoder.\+cpp}}\end{DoxyCompactItemize}

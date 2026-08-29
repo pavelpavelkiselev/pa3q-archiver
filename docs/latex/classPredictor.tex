@@ -12,38 +12,38 @@ Estimates the probability of the next bit being 0 or 1.
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-uint64\+\_\+t \doxymbox{\hyperlink{classPredictor_a148aca1754dea02e5412eead4481fab9}{next\+\_\+bit\+\_\+probability}} () const
+uint32\+\_\+t \doxymbox{\hyperlink{classPredictor_a8e5ff391bbd67b24a03ae35d710cecf2}{next\+\_\+bit\+\_\+probability}} ()
 \begin{DoxyCompactList}\small\item\em Predicts the probability that the next bit will be 0. \end{DoxyCompactList}\item 
-void \doxymbox{\hyperlink{classPredictor_a580a896551ebf1a07f49c9fdb6c5e766}{update\+\_\+model}} (bool bit)
+void \doxymbox{\hyperlink{classPredictor_a027dc76314a2c8110e9615f098679926}{update\+\_\+model}} (const bool bit)
 \begin{DoxyCompactList}\small\item\em Updates the context models and neural network weights. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Estimates the probability of the next bit being 0 or 1. 
 
-The \doxylink{classPredictor}{Predictor} uses 3 context models (order-\/0, order-\/1, Order-\/2) and mixes their predictions using a stretch/\+squash logistic regression model updated dynamically via gradient descent. 
+The \doxylink{classPredictor}{Predictor} uses 3 context models (order-\/0, order-\/1, order-\/2) and mixes their predictions using a stretch/\+squash logistic regression model updated dynamically via gradient descent. 
 
-\label{doc-func-members}
+\label{classPredictor_doc-func-members}
 \Hypertarget{classPredictor_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classPredictor_a148aca1754dea02e5412eead4481fab9}\index{Predictor@{Predictor}!next\_bit\_probability@{next\_bit\_probability}}
+\Hypertarget{classPredictor_a8e5ff391bbd67b24a03ae35d710cecf2}\index{Predictor@{Predictor}!next\_bit\_probability@{next\_bit\_probability}}
 \index{next\_bit\_probability@{next\_bit\_probability}!Predictor@{Predictor}}
 \doxysubsubsection{\texorpdfstring{next\_bit\_probability()}{next\_bit\_probability()}}
-{\footnotesize\ttfamily \label{classPredictor_a148aca1754dea02e5412eead4481fab9} 
-uint64\+\_\+t Predictor::\+next\+\_\+bit\+\_\+probability (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classPredictor_a8e5ff391bbd67b24a03ae35d710cecf2} 
+uint32\+\_\+t Predictor::\+next\+\_\+bit\+\_\+probability (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Predicts the probability that the next bit will be 0. 
 
 \begin{DoxyReturn}{Returns}
-A scaled integer probability at \+[0; 2\texorpdfstring{$^\wedge$}{\string^}64). 
+A scaled integer probability at \+[0; 2\texorpdfstring{$^\wedge$}{\string^}32). 
 \end{DoxyReturn}
-\Hypertarget{classPredictor_a580a896551ebf1a07f49c9fdb6c5e766}\index{Predictor@{Predictor}!update\_model@{update\_model}}
+\Hypertarget{classPredictor_a027dc76314a2c8110e9615f098679926}\index{Predictor@{Predictor}!update\_model@{update\_model}}
 \index{update\_model@{update\_model}!Predictor@{Predictor}}
 \doxysubsubsection{\texorpdfstring{update\_model()}{update\_model()}}
-{\footnotesize\ttfamily \label{classPredictor_a580a896551ebf1a07f49c9fdb6c5e766} 
-void Predictor::\+update\+\_\+model (\begin{DoxyParamCaption}\item[{bool}]{bit}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classPredictor_a027dc76314a2c8110e9615f098679926} 
+void Predictor::\+update\+\_\+model (\begin{DoxyParamCaption}\item[{const bool}]{bit}{}\end{DoxyParamCaption})}
 
 
 
@@ -56,7 +56,7 @@ Updates the context models and neural network weights.
 \end{DoxyParams}
 
 
-The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-src/\+\doxymbox{\hyperlink{predictor_8hpp}{predictor.\+hpp}}\item 
-src/\+\doxymbox{\hyperlink{predictor_8cpp}{predictor.\+cpp}}\end{DoxyCompactItemize}
+src/\doxymbox{\hyperlink{predictor_8hpp}{predictor.\+hpp}}\item 
+src/\doxymbox{\hyperlink{predictor_8cpp}{predictor.\+cpp}}\end{DoxyCompactItemize}
