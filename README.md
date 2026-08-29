@@ -3,12 +3,7 @@ pa3q - a simple, lightweight and high-ratio file archiver written in C++ (C++20)
 It uses context mixing compression algorithm with arithmetic (range) coding and dynamic modeling.
 
 ### How to build:
-### Windows:
-    mkdir build
-    cd build
-    cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-    cmake --build build
-### MacOS/Linux:
+### Windows/MacOS/Linux:
     mkdir build
     cd build
     cmake -DCMAKE_BUILD_TYPE=Release ..
@@ -33,11 +28,11 @@ On Linux (if Make used) executable file will locate in ./bin/  <br>
     make test MODE=debug
 
 ### Compression example:
-    ./pa3q -c enwik8 enwik8.p3q 
-    Compressing: ... 
-    Compression successful! 
-    Compression time (seconds):	239.142 
-    File compressed from 100000000 to 49491852 bytes. 
+    ./pa3q -c enwik9 enwik9.p3q
+    Compressing: ...
+    Compression successful!
+    Compression time (seconds):	493.222
+    File compressed from 1000000000 to 489866484 bytes. 
 
 <br>The project is divided into modules:
 * Predictor
@@ -46,6 +41,4 @@ On Linux (if Make used) executable file will locate in ./bin/  <br>
 * Decompressor
 * Command line interface
 <br>
-*Note*:
-the project targets 64-bit systems and uses 128-bit arithmetic,<br>
-__int128 is not compatible with Microsoft Visual C++ (MSVC), better use GCC or Clang.
+The project targets 64-bit systems.
