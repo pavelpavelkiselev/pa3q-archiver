@@ -1,13 +1,9 @@
 cmake_minimum_required(VERSION 3.30)
-project(pa3q VERSION 1.0 LANGUAGES CXX)
+project(pa3q VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
-
-if(MSVC)
-    message(FATAL_ERROR "ERROR: MSVC not supported!")
-endif()
 
 set(CORE_SOURCES
     src/predictor.cpp
