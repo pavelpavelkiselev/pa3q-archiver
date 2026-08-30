@@ -1,6 +1,6 @@
 # pa3q
 pa3q - a simple, lightweight and high-ratio file archiver written in C++ (C++20).<br>
-It uses context mixing compression algorithm with arithmetic (range) coding and dynamic modeling.
+It utilizes a context mixing compression algorithm combined with arithmetic (range) coding and dynamic modeling.
 
 ### How to build:
 ### Windows/MacOS/Linux:
@@ -10,8 +10,9 @@ It uses context mixing compression algorithm with arithmetic (range) coding and 
     cmake --build .
 ### Linux (Make):
     make
-On Windows, MacOS and Linux executable file will locate in .\build\bin\  <br>
-On Linux (if Make used) executable file will locate in ./bin/  <br>
+On Windows executable file is located in .\build\bin\  <br>
+On Linux and MacOS executable file is located in ./build/bin/  <br>
+On Linux (if Make used) executable file is located in ./bin/  <br>
 <br>
 ### How to use:
 ### To compress:
@@ -24,15 +25,15 @@ On Linux (if Make used) executable file will locate in ./bin/  <br>
     .\build\bin\pa3q_tests.exe
 ### On Linux, MacOS:
     ./build/bin/pa3q_tests
-### Linux (Make, gtest module need to be installed):
+### Linux (Make, gtest module needs to be installed):
     make test MODE=debug
 
 ### Compression example:
     ./pa3q -c enwik9 enwik9.p3q
     Compressing: ...
     Compression successful!
-    Compression time (seconds):	493.222
-    File compressed from 1000000000 to 489866484 bytes. 
+    Compression time (seconds):	479.436
+    File compressed from 1000000000 to 412216825 bytes.
 
 <br>The project is divided into modules:
 * Predictor
@@ -42,3 +43,5 @@ On Linux (if Make used) executable file will locate in ./bin/  <br>
 * Command line interface
 <br>
 The project targets 64-bit systems.
+
+***Note***: Current version (0.1) is experimental. The predictor module relies heavily on floating-point arithmetic ('double' type), which may cause compression errors due to precision loss and differences across platforms.

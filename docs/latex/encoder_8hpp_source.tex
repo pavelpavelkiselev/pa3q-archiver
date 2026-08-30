@@ -6,26 +6,25 @@
 \DoxyCodeLine{00005\ }
 \DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cstdint>}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <fstream>}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{predictor_8hpp}{predictor.hpp}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{predictor_8hpp}{predictor.hpp}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <fstream>}}
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classEncoder_a27cd2bc619b417554c1cc831d8e620d8}{Encoder}}\ \{}
 \DoxyCodeLine{00017\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00018\ \ \ \doxymbox{\hyperlink{classPredictor}{Predictor}}\ predictor;}
-\DoxyCodeLine{00019\ \ \ uint64\_t\ low\ =\ 0;}
-\DoxyCodeLine{00020\ \ \ uint64\_t\ high\ =\ 0xFFFFFFFFFFFFFFFF;}
-\DoxyCodeLine{00021\ \ \ uint64\_t\ current\ =\ 0;}
-\DoxyCodeLine{00022\ \ \ std::ifstream\&\ input;}
-\DoxyCodeLine{00023\ \ \ std::ofstream\&\ output;}
+\DoxyCodeLine{00018\ \ \ \ \ \doxymbox{\hyperlink{classPredictor}{Predictor}}\ predictor;}
+\DoxyCodeLine{00019\ \ \ \ \ uint32\_t\ low\ =\ 0;}
+\DoxyCodeLine{00020\ \ \ \ \ uint32\_t\ high\ =\ 0xFFFFFFFF;}
+\DoxyCodeLine{00021\ \ \ \ \ uint32\_t\ current\ =\ 0;}
+\DoxyCodeLine{00022\ \ \ \ \ std::ifstream\ \&input;}
+\DoxyCodeLine{00023\ \ \ \ \ std::ofstream\ \&output;}
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00031\ \ \ \doxymbox{\hyperlink{classEncoder_a27cd2bc619b417554c1cc831d8e620d8}{Encoder}}(std::ifstream\&\ in,\ std::ofstream\&\ out);}
+\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{classEncoder_a27cd2bc619b417554c1cc831d8e620d8}{Encoder}}(std::ifstream\ \&in,\ std::ofstream\ \&out);}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classEncoder_a9b7e3dcd4cbc100f51980090e85ba13a}{encode}}(\textcolor{keywordtype}{bool}\ bit);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classEncoder_a795d313bf97d55cde77d62a36fec5a38}{encode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ bit);}
 \DoxyCodeLine{00038\ }
-\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classEncoder_a24519ba11219da756f1f0db96d9a0290}{decode}}();}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classEncoder_a24519ba11219da756f1f0db96d9a0290}{decode}}();}
 \DoxyCodeLine{00044\ \};}
-\DoxyCodeLine{00045\ }
 
 \end{DoxyCode}
