@@ -17,8 +17,8 @@
  */
 int main(int argc, char **argv) {
     if ((argc != 4) or (argv[1][0] != '-') || ((argv[1][1] != 'c') and (argv[1][1] != 'd'))) {
-        std::cerr << "Compression:\tpa3q -c 'input file' 'output file'\n"
-                  << "Decompression:\tpa3q -d 'input file' 'output file'\n";
+        std::cerr << "Compression:\tpa3q -c <input file> <output file>\n"
+                  << "Decompression:\tpa3q -d <input file> <output file>\n";
         return 1;
     }
 
