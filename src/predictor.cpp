@@ -19,8 +19,7 @@ uint16_t Predictor::next_bit_probability() {
 
     x = w0 * s0 + w1 * s1 + w2 * s2;
 
-    mixed_p0 = squash(x);
-    mixed_p0 = clamp_m(mixed_p0);
+    mixed_p0 = clamp_m(squash(x));
 
     return static_cast<uint16_t>(mixed_p0 * 65535.0);
 }
