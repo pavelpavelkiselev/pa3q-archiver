@@ -5,7 +5,7 @@
 
 #include "predictor.hpp"
 
-uint32_t Predictor::next_bit_probability() {
+uint16_t Predictor::next_bit_probability() {
     p0_order0 =
         static_cast<double>(count0[context][0] + 1) / (count0[context][0] + count0[context][1] + 2);
     p0_order1 = static_cast<double>(count1[prev1][context][0] + 1) /
@@ -18,16 +18,11 @@ uint32_t Predictor::next_bit_probability() {
     s2 = stretch(clamp_p(p0_order2));
 
     x = w0 * s0 + w1 * s1 + w2 * s2;
+
     mixed_p0 = squash(x);
+    mixed_p0 = clamp_m(mixed_p0);
 
-    if (mixed_p0 < 0.0000000001) {
-        mixed_p0 = 0.0000000001;
-    }
-    if (mixed_p0 > 0.9999999999) {
-        mixed_p0 = 0.9999999999;
-    }
-
-    return static_cast<uint32_t>(mixed_p0 * 4294967295.0);
+    return static_cast<uint16_t>(mixed_p0 * 65535.0);
 }
 
 void Predictor::update_model(const bool bit) {
@@ -43,19 +38,19 @@ void Predictor::update_model(const bool bit) {
     w2 = clamp_w(w2);
 
     count0[context][bit] += 1;
-    if ((count0[context][0] + count0[context][1] + 2) >= 0xFFFFFFFF) {
+    if ((count0[context][0] + count0[context][1] + 2) >= 0xFFFF) {
         count0[context][0] /= 2;
         count0[context][1] /= 2;
     }
 
     count1[prev1][context][bit] += 1;
-    if ((count1[prev1][context][0] + count1[prev1][context][1] + 2) >= 0xFFFFFFFF) {
+    if ((count1[prev1][context][0] + count1[prev1][context][1] + 2) >= 0xFFFF) {
         count1[prev1][context][0] /= 2;
         count1[prev1][context][1] /= 2;
     }
 
     count2[prev2][context][bit] += 1;
-    if ((count2[prev2][context][0] + count2[prev2][context][1] + 2) >= 0xFFFFFFFF) {
+    if ((count2[prev2][context][0] + count2[prev2][context][1] + 2) >= 0xFFFF) {
         count2[prev2][context][0] /= 2;
         count2[prev2][context][1] /= 2;
     }
