@@ -13,7 +13,7 @@ var NAVTREEINDEX0 =
 "classEncoder.html#a795d313bf97d55cde77d62a36fec5a38":[0,0,2,2],
 "classPredictor.html":[0,0,3],
 "classPredictor.html#a027dc76314a2c8110e9615f098679926":[0,0,3,1],
-"classPredictor.html#a8e5ff391bbd67b24a03ae35d710cecf2":[0,0,3,0],
+"classPredictor.html#a1596c53e87a1806bc4f5b6d184c6b99c":[0,0,3,0],
 "classes.html":[0,1],
 "compressor_8cpp.html":[1,0,0,0],
 "compressor_8hpp.html":[1,0,0,1],
