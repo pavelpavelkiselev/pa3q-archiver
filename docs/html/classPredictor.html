@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classPredictor
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8e5ff391bbd67b24a03ae35d710cecf2" id="r_a8e5ff391bbd67b24a03ae35d710cecf2"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a8e5ff391bbd67b24a03ae35d710cecf2">next_bit_probability</a> ()</td></tr>
-<tr class="memdesc:a8e5ff391bbd67b24a03ae35d710cecf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts the probability that the next bit will be 0.  <br /></td></tr>
+<tr class="memitem:a1596c53e87a1806bc4f5b6d184c6b99c" id="r_a1596c53e87a1806bc4f5b6d184c6b99c"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a1596c53e87a1806bc4f5b6d184c6b99c">next_bit_probability</a> ()</td></tr>
+<tr class="memdesc:a1596c53e87a1806bc4f5b6d184c6b99c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts the probability that the next bit will be 0.  <br /></td></tr>
 <tr class="memitem:a027dc76314a2c8110e9615f098679926" id="r_a027dc76314a2c8110e9615f098679926"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a027dc76314a2c8110e9615f098679926">update_model</a> (const bool bit)</td></tr>
 <tr class="memdesc:a027dc76314a2c8110e9615f098679926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the context models and neural network weights.  <br /></td></tr>
 </table>
@@ -128,14 +128,14 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Estimates the probability of the next bit being 0 or 1. </p>
 <p>The <a class="el" href="classPredictor.html" title="Estimates the probability of the next bit being 0 or 1.">Predictor</a> uses 3 context models (order-0, order-1, order-2) and mixes their predictions using a stretch/squash logistic regression model updated dynamically via gradient descent. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a8e5ff391bbd67b24a03ae35d710cecf2" name="a8e5ff391bbd67b24a03ae35d710cecf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e5ff391bbd67b24a03ae35d710cecf2">&#9670;&#160;</a></span>next_bit_probability()</h2>
+<a id="a1596c53e87a1806bc4f5b6d184c6b99c" name="a1596c53e87a1806bc4f5b6d184c6b99c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1596c53e87a1806bc4f5b6d184c6b99c">&#9670;&#160;</a></span>next_bit_probability()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t Predictor::next_bit_probability </td>
+          <td class="memname">uint16_t Predictor::next_bit_probability </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -144,7 +144,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predicts the probability that the next bit will be 0. </p>
-<dl class="section return"><dt>Returns</dt><dd>A scaled integer probability at [0; 2^32). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A scaled integer probability at [0; 2^16). </dd></dl>
 
 </div>
 </div>

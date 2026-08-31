@@ -12,7 +12,7 @@ Estimates the probability of the next bit being 0 or 1.
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-uint32\+\_\+t \doxymbox{\hyperlink{classPredictor_a8e5ff391bbd67b24a03ae35d710cecf2}{next\+\_\+bit\+\_\+probability}} ()
+uint16\+\_\+t \doxymbox{\hyperlink{classPredictor_a1596c53e87a1806bc4f5b6d184c6b99c}{next\+\_\+bit\+\_\+probability}} ()
 \begin{DoxyCompactList}\small\item\em Predicts the probability that the next bit will be 0. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{classPredictor_a027dc76314a2c8110e9615f098679926}{update\+\_\+model}} (const bool bit)
 \begin{DoxyCompactList}\small\item\em Updates the context models and neural network weights. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -26,18 +26,18 @@ The \doxylink{classPredictor}{Predictor} uses 3 context models (order-\/0, order
 \label{classPredictor_doc-func-members}
 \Hypertarget{classPredictor_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classPredictor_a8e5ff391bbd67b24a03ae35d710cecf2}\index{Predictor@{Predictor}!next\_bit\_probability@{next\_bit\_probability}}
+\Hypertarget{classPredictor_a1596c53e87a1806bc4f5b6d184c6b99c}\index{Predictor@{Predictor}!next\_bit\_probability@{next\_bit\_probability}}
 \index{next\_bit\_probability@{next\_bit\_probability}!Predictor@{Predictor}}
 \doxysubsubsection{\texorpdfstring{next\_bit\_probability()}{next\_bit\_probability()}}
-{\footnotesize\ttfamily \label{classPredictor_a8e5ff391bbd67b24a03ae35d710cecf2} 
-uint32\+\_\+t Predictor::\+next\+\_\+bit\+\_\+probability (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classPredictor_a1596c53e87a1806bc4f5b6d184c6b99c} 
+uint16\+\_\+t Predictor::\+next\+\_\+bit\+\_\+probability (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Predicts the probability that the next bit will be 0. 
 
 \begin{DoxyReturn}{Returns}
-A scaled integer probability at \+[0; 2\texorpdfstring{$^\wedge$}{\string^}32). 
+A scaled integer probability at \+[0; 2\texorpdfstring{$^\wedge$}{\string^}16). 
 \end{DoxyReturn}
 \Hypertarget{classPredictor_a027dc76314a2c8110e9615f098679926}\index{Predictor@{Predictor}!update\_model@{update\_model}}
 \index{update\_model@{update\_model}!Predictor@{Predictor}}

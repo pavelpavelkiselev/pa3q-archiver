@@ -25,11 +25,11 @@
 \DoxyCodeLine{00032\ \ \ \ \ uint8\_t\ prev1\ =\ 0;}
 \DoxyCodeLine{00033\ \ \ \ \ uint16\_t\ prev2\ =\ 0;}
 \DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ std::array<std::array<uint32\_t,\ 2>,\ 256>\ count0\ =\ \{\};}
-\DoxyCodeLine{00036\ \ \ \ \ std::vector<std::array<std::array<uint32\_t,\ 2>,\ 256>>\ count1\ =}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ std::vector<std::array<std::array<uint32\_t,\ 2>,\ 256>>(256);}
-\DoxyCodeLine{00038\ \ \ \ \ std::vector<std::array<std::array<uint32\_t,\ 2>,\ 256>>\ count2\ =}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::vector<std::array<std::array<uint32\_t,\ 2>,\ 256>>(65536);}
+\DoxyCodeLine{00035\ \ \ \ \ std::array<std::array<uint16\_t,\ 2>,\ 256>\ count0\ =\ \{\};}
+\DoxyCodeLine{00036\ \ \ \ \ std::vector<std::array<std::array<uint16\_t,\ 2>,\ 256>>\ count1\ =}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ std::vector<std::array<std::array<uint16\_t,\ 2>,\ 256>>(256);}
+\DoxyCodeLine{00038\ \ \ \ \ std::vector<std::array<std::array<uint16\_t,\ 2>,\ 256>>\ count2\ =}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::vector<std::array<std::array<uint16\_t,\ 2>,\ 256>>(65536);}
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ Raw\ probabilities}}
 \DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{double}\ p0\_order0\ =\ 0.5;}
@@ -78,10 +78,20 @@
 \DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ w;}
 \DoxyCodeLine{00106\ \ \ \ \ \};}
 \DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00113\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{classPredictor_a8e5ff391bbd67b24a03ae35d710cecf2}{next\_bit\_probability}}();}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classPredictor_a027dc76314a2c8110e9615f098679926}{update\_model}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ bit);}
-\DoxyCodeLine{00120\ \};}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ clamp\_m(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ m)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\ <\ 0.0000000001)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.0000000001;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\ >\ 0.9999999999)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.9999999999;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00128\ \ \ \ \ uint16\_t\ \doxymbox{\hyperlink{classPredictor_a1596c53e87a1806bc4f5b6d184c6b99c}{next\_bit\_probability}}();}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classPredictor_a027dc76314a2c8110e9615f098679926}{update\_model}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ bit);}
+\DoxyCodeLine{00135\ \};}
 
 \end{DoxyCode}

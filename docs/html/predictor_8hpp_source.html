@@ -135,11 +135,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('predictor_8hpp
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    uint8_t prev1 = 0;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    uint16_t prev2 = 0;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    std::array&lt;std::array&lt;uint32_t, 2&gt;, 256&gt; count0 = {};</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    std::vector&lt;std::array&lt;std::array&lt;uint32_t, 2&gt;, 256&gt;&gt; count1 =</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        std::vector&lt;std::array&lt;std::array&lt;uint32_t, 2&gt;, 256&gt;&gt;(256);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    std::vector&lt;std::array&lt;std::array&lt;uint32_t, 2&gt;, 256&gt;&gt; count2 =</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        std::vector&lt;std::array&lt;std::array&lt;uint32_t, 2&gt;, 256&gt;&gt;(65536);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    std::array&lt;std::array&lt;uint16_t, 2&gt;, 256&gt; count0 = {};</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    std::vector&lt;std::array&lt;std::array&lt;uint16_t, 2&gt;, 256&gt;&gt; count1 =</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        std::vector&lt;std::array&lt;std::array&lt;uint16_t, 2&gt;, 256&gt;&gt;(256);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    std::vector&lt;std::array&lt;std::array&lt;uint16_t, 2&gt;, 256&gt;&gt; count2 =</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        std::vector&lt;std::array&lt;std::array&lt;uint16_t, 2&gt;, 256&gt;&gt;(65536);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment">// Raw probabilities</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">double</span> p0_order0 = 0.5;</div>
@@ -187,16 +187,26 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('predictor_8hpp
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        }</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">return</span> w;</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    };</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    uint32_t <a class="code hl_function" href="classPredictor.html#a8e5ff391bbd67b24a03ae35d710cecf2">next_bit_probability</a>();</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classPredictor.html#a027dc76314a2c8110e9615f098679926">update_model</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span> bit);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>};</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">inline</span> <span class="keywordtype">double</span> clamp_m(<span class="keyword">const</span> <span class="keywordtype">double</span> m)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">if</span> (m &lt; 0.0000000001) {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">return</span> 0.0000000001;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (m &gt; 0.9999999999) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">return</span> 0.9999999999;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            <span class="keywordflow">return</span> m;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    uint16_t <a class="code hl_function" href="classPredictor.html#a1596c53e87a1806bc4f5b6d184c6b99c">next_bit_probability</a>();</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classPredictor.html#a027dc76314a2c8110e9615f098679926">update_model</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span> bit);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>};</div>
 </div>
 <div class="ttc" id="aclassPredictor_html"><div class="ttname"><a href="classPredictor.html">Predictor</a></div><div class="ttdoc">Estimates the probability of the next bit being 0 or 1.</div><div class="ttdef"><b>Definition</b> predictor.hpp:29</div></div>
-<div class="ttc" id="aclassPredictor_html_a027dc76314a2c8110e9615f098679926"><div class="ttname"><a href="classPredictor.html#a027dc76314a2c8110e9615f098679926">Predictor::update_model</a></div><div class="ttdeci">void update_model(const bool bit)</div><div class="ttdoc">Updates the context models and neural network weights.</div><div class="ttdef"><b>Definition</b> predictor.cpp:33</div></div>
-<div class="ttc" id="aclassPredictor_html_a8e5ff391bbd67b24a03ae35d710cecf2"><div class="ttname"><a href="classPredictor.html#a8e5ff391bbd67b24a03ae35d710cecf2">Predictor::next_bit_probability</a></div><div class="ttdeci">uint32_t next_bit_probability()</div><div class="ttdoc">Predicts the probability that the next bit will be 0.</div><div class="ttdef"><b>Definition</b> predictor.cpp:8</div></div>
+<div class="ttc" id="aclassPredictor_html_a027dc76314a2c8110e9615f098679926"><div class="ttname"><a href="classPredictor.html#a027dc76314a2c8110e9615f098679926">Predictor::update_model</a></div><div class="ttdeci">void update_model(const bool bit)</div><div class="ttdoc">Updates the context models and neural network weights.</div><div class="ttdef"><b>Definition</b> predictor.cpp:28</div></div>
+<div class="ttc" id="aclassPredictor_html_a1596c53e87a1806bc4f5b6d184c6b99c"><div class="ttname"><a href="classPredictor.html#a1596c53e87a1806bc4f5b6d184c6b99c">Predictor::next_bit_probability</a></div><div class="ttdeci">uint16_t next_bit_probability()</div><div class="ttdoc">Predicts the probability that the next bit will be 0.</div><div class="ttdef"><b>Definition</b> predictor.cpp:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
