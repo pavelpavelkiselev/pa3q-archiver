@@ -3,16 +3,22 @@ pa3q - a simple, lightweight and high-ratio file archiver written in C++ (C++20)
 It utilizes a context mixing compression algorithm combined with arithmetic (range) coding and dynamic modeling.
 
 ### How to build:
-### Windows/MacOS/Linux:
+### Windows:
+    mkdir build
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+    cmake --build . --config Release --target pa3q
+    cmake --build . --config Debug --target pa3q_tests
+### Linux/MacOS:
     mkdir build
     cd build
     cmake -DCMAKE_BUILD_TYPE=Release ..
     cmake --build .
 ### Linux (Make):
     make
-On Windows executable file is located in .\build\bin\  <br>
-On Linux and MacOS executable file is located in ./build/bin/  <br>
-On Linux (if Make used) executable file is located in ./bin/  <br>
+On Windows executable file is located in **.\build\bin\Release**  <br>
+On Linux and MacOS executable file is located in **./build/bin/**  <br>
+On Linux (if Make used) executable file is located in **./bin/**  <br>
 <br>
 ### How to use:
 ### To compress:
@@ -22,7 +28,7 @@ On Linux (if Make used) executable file is located in ./bin/  <br>
 
 ### How to test:
 ### On Windows:
-    .\build\bin\pa3q_tests.exe
+    .\build\bin\Debug\pa3q_tests.exe
 ### On Linux, MacOS:
     ./build/bin/pa3q_tests
 ### Linux (Make, gtest module needs to be installed):
