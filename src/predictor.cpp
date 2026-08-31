@@ -17,9 +17,9 @@ uint16_t Predictor::next_bit_probability() {
     s1 = stretch(clamp_p(p0_order1));
     s2 = stretch(clamp_p(p0_order2));
 
-    x = w0 * s0 + w1 * s1 + w2 * s2;
+    mx = w0 * s0 + w1 * s1 + w2 * s2;
 
-    mixed_p0 = clamp_m(squash(x));
+    mixed_p0 = clamp_m(squash(mx));
 
     return static_cast<uint16_t>(mixed_p0 * 65535.0);
 }
@@ -58,7 +58,7 @@ void Predictor::update_model(const bool bit) {
     if (context >= 0x100) {
         context &= 0xFF;
         prev2 = (prev2 << 8) | prev1;
-        prev1 = context;
+        prev1 = static_cast<uint8_t>(context);
         context = 1;
     }
 }
