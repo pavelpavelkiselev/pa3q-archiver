@@ -32,11 +32,11 @@ private:
     uint8_t prev1 = 0;
     uint16_t prev2 = 0;
 
-    std::array<std::array<uint32_t, 2>, 256> count0 = {};
-    std::vector<std::array<std::array<uint32_t, 2>, 256>> count1 =
-        std::vector<std::array<std::array<uint32_t, 2>, 256>>(256);
-    std::vector<std::array<std::array<uint32_t, 2>, 256>> count2 =
-        std::vector<std::array<std::array<uint32_t, 2>, 256>>(65536);
+    std::array<std::array<uint16_t, 2>, 256> count0 = {};
+    std::vector<std::array<std::array<uint16_t, 2>, 256>> count1 =
+        std::vector<std::array<std::array<uint16_t, 2>, 256>>(256);
+    std::vector<std::array<std::array<uint16_t, 2>, 256>> count2 =
+        std::vector<std::array<std::array<uint16_t, 2>, 256>>(65536);
 
     // Raw probabilities
     double p0_order0 = 0.5;
@@ -54,7 +54,7 @@ private:
     // Final mixed probability
     double mixed_p0 = 0.0;
 
-    static constexpr double learning_rate = 0.00390625; // 2^(-8)
+    static constexpr double learning_rate = 0.00390625; //  1/256
 
     // Contexts' weights
     double w0 = 1.0;
@@ -105,12 +105,27 @@ private:
         return w;
     };
 
+    /**
+     * @brief Clamps the mixed probability to avoid limits approaching 0 or 1.
+     * @param m Original probability.
+     * @return Clamped probability.
+     */
+    inline double clamp_m(const double m) const {
+        if (m < 0.0000000001) {
+            return 0.0000000001;
+        } else if (m > 0.9999999999) {
+            return 0.9999999999;
+        } else {
+            return m;
+        }
+    }
+
 public:
     /**
      * @brief Predicts the probability that the next bit will be 0.
-     * @return A scaled integer probability at [0; 2^32).
+     * @return A scaled integer probability at [0; 2^16).
      */
-    uint32_t next_bit_probability();
+    uint16_t next_bit_probability();
 
     /**
      * @brief Updates the context models and neural network weights.

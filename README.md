@@ -16,9 +16,9 @@ On Linux (if Make used) executable file is located in ./bin/  <br>
 <br>
 ### How to use:
 ### To compress:
-    pa3q.exe -c 'input file' 'output file'
+    pa3q.exe -c <input file> <output file>
 ### To decompress:
-    pa3q.exe -d 'input file' 'output file'
+    pa3q.exe -d <input file> <output file>
 
 ### How to test:
 ### On Windows:
@@ -32,8 +32,8 @@ On Linux (if Make used) executable file is located in ./bin/  <br>
     ./pa3q -c enwik9 enwik9.p3q
     Compressing: ...
     Compression successful!
-    Compression time (seconds):	479.436
-    File compressed from 1000000000 to 412216825 bytes.
+    Compression time (seconds):	333.603
+    File compressed from 1000000000 to 229659357 bytes.
 
 <br>The project is divided into modules:
 * Predictor
@@ -44,4 +44,4 @@ On Linux (if Make used) executable file is located in ./bin/  <br>
 <br>
 The project targets 64-bit systems.
 
-***Note***: Current version (0.1) is experimental. The predictor module relies heavily on floating-point arithmetic ('double' type), which may cause compression errors due to precision loss and differences across platforms.
+***Note***: Current version (0.2) is experimental. The predictor module relies heavily on floating-point arithmetic ('double' type), which may cause compression errors due to precision loss and differences across platforms.
