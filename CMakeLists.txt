@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.25)
-project(pa3q VERSION 0.1 LANGUAGES CXX)
+project(pa3q VERSION 0.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(MSVC)
-    set(COMPILE_WARNINGS /W4)
+    set(COMPILE_WARNINGS /W4 /WX)
 else()
     set(COMPILE_WARNINGS -Wall -Wextra -Wpedantic -Werror)
 endif()
