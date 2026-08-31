@@ -54,7 +54,7 @@ private:
     // Final mixed probability
     double mixed_p0 = 0.0;
 
-    static constexpr double learning_rate = 0.00390625; // 2^(-8)
+    static constexpr double learning_rate = 0.00390625; //  1/256
 
     // Contexts' weights
     double w0 = 1.0;
