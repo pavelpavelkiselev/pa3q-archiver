@@ -44,13 +44,13 @@ void Compressor::compress() {
         }
     }
 
-    while (((low ^ high) & ((static_cast<uint32_t>(0xFF)) << 24)) == 0) {
-        output_file.put(static_cast<unsigned char>(high >> 24));
+    while (((low ^ high) & ((static_cast<uint32_t>(0xFF)) << 8)) == 0) {
+        output_file.put(static_cast<unsigned char>(high >> 8));
         low <<= 8;
         high = (high << 8) | 0xFF;
     }
 
-    output_file.put(static_cast<unsigned char>(high >> 24));
+    output_file.put(static_cast<unsigned char>(high >> 8));
     input_file.close();
     output_file.close();
 }
