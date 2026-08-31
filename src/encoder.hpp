@@ -16,9 +16,9 @@
 class Encoder {
 protected:
     Predictor predictor;
-    uint32_t low = 0;
-    uint32_t high = 0xFFFFFFFF;
-    uint32_t current = 0;
+    uint16_t low = 0;
+    uint16_t high = 0xFFFF;
+    uint16_t current = 0;
     std::ifstream &input;
     std::ofstream &output;
 
