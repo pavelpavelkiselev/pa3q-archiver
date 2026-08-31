@@ -49,10 +49,10 @@ private:
     double s2 = 0.0;
 
     // Unsquashed mixed probability
-    double x = 0.0;
+    double mx = 0.0;
 
     // Final mixed probability
-    double mixed_p0 = 0.0;
+    double mixed_p0 = 0.5;
 
     static constexpr double learning_rate = 0.00390625; //  1/256
 
