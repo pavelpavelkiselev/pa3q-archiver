@@ -38,8 +38,9 @@ On Linux (if Make used) executable file is located in **./bin/**  <br>
     ./pa3q -c enwik9 enwik9.p3q
     Compressing: ...
     Compression successful!
-    Compression time (seconds):	333.603
-    File compressed from 1000000000 to 229659357 bytes.
+    Compression time (seconds):	497.766
+    File compressed from 1000000000 to 407770547 bytes.
+
 
 <br>The project is divided into modules:
 * Predictor
