@@ -10,13 +10,7 @@
 #include <cstdint>
 #include <vector>
 
-static_assert(std::numeric_limits<double>::is_iec559,
-              "ERROR: IEEE-754 floating-point not supported!");
-
-static_assert(sizeof(double) == 8, "ERROR: Wrong size of a type 'double'!");
-
-static_assert(std::numeric_limits<double>::radix == 2,
-              "ERROR: Base of floating-point types must be 2!");
+#include "arithmetic.c"
 
 /**
  * @class Predictor
@@ -38,87 +32,28 @@ private:
     std::vector<std::array<std::array<uint16_t, 2>, 256>> count2 =
         std::vector<std::array<std::array<uint16_t, 2>, 256>>(65536);
 
-    // Raw probabilities
-    double p0_order0 = 0.5;
-    double p0_order1 = 0.5;
-    double p0_order2 = 0.5;
+    // Raw probabilities. 2^16 scale. From [0; 1] to [0; 65536]
+    uint16_t p0_order0 = 32768; // 0.5 at 2^16 scale.
+    uint16_t p0_order1 = 32768;
+    uint16_t p0_order2 = 32768;
 
-    // Stretched probabilities
-    double s0 = 0.0;
-    double s1 = 0.0;
-    double s2 = 0.0;
+    // Stretched probabilities. 2^27 scale. From [-12; 12] to [-1610612736; 1610612736]
+    int32_t s0 = 0;
+    int32_t s1 = 0;
+    int32_t s2 = 0;
 
-    // Unsquashed mixed probability
-    double mx = 0.0;
+    // Unsquashed mixed probability. 2^27 scale (same as stretched probabilities).
+    int64_t mx = 0;
 
     // Final mixed probability
-    double mixed_p0 = 0.5;
+    uint16_t mixed_p0 = 32768;
 
-    static constexpr double learning_rate = 0.00390625; //  1/256
+    // static constexpr int64_t learning_rate = 256;
 
-    // Contexts' weights
-    double w0 = 1.0;
-    double w1 = 1.0;
-    double w2 = 1.0;
-
-    /**
-     * @brief Converts a probability to logistic space (log-odds).
-     * @param p Probability value in range (0, 1).
-     * @return Log-odds representation.
-     */
-    inline double stretch(const double p) const { return std::log(p / (1.0 - p)); }
-
-    /**
-     * @brief Converts a logistic value back to a probability (Sigmoid function).
-     * @param x Logistic value.
-     * @return Probability in range (0, 1).
-     */
-    inline double squash(const double x) const { return (1.0 / (1.0 + std::exp(-x))); }
-
-    /**
-     * @brief Clamps the probability to avoid limits approaching 0 or 1.
-     * @param p Original probability.
-     * @return Clamped probability.
-     */
-    inline double clamp_p(const double p) const {
-        if (p < 0.00000004) {
-            return 0.00000004;
-        } else if (p > 0.99999996) {
-            return 0.99999996;
-        } else {
-            return p;
-        }
-    }
-
-    /**
-     * @brief Clamps the weight to avoid -inf to inf range.
-     * @param w Original weight.
-     * @return Clamped weight.
-     */
-    inline double clamp_w(const double w) const {
-        if (w < -32.0) {
-            return -32.0;
-        }
-        if (w > 32.0) {
-            return 32.0;
-        }
-        return w;
-    };
-
-    /**
-     * @brief Clamps the mixed probability to avoid limits approaching 0 or 1.
-     * @param m Original probability.
-     * @return Clamped probability.
-     */
-    inline double clamp_m(const double m) const {
-        if (m < 0.0000000001) {
-            return 0.0000000001;
-        } else if (m > 0.9999999999) {
-            return 0.9999999999;
-        } else {
-            return m;
-        }
-    }
+    // Contexts' weights. 2^40 scale. From [-48; 48] to [-52776558133248; 52776558133248]
+    int64_t w0 = 1099511627776; // 1.0 at 40-bit scale.
+    int64_t w1 = 1099511627776;
+    int64_t w2 = 1099511627776;
 
 public:
     /**
