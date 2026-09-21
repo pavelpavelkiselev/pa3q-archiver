@@ -104,3 +104,38 @@ TEST_F(ArchiverTest, throwing_missing_files_decompressor) {
     }, std::runtime_error);
 }
 
+TEST_F(ArchiverTest, single_byte) {
+    run_round_trip_test({'Z'});
+}
+
+TEST_F(ArchiverTest, full_byte_spectrum) {
+    std::vector<char> data(256);
+    for (int i = 0; i < 256; ++i) {
+        data[i] = static_cast<char>(i);
+    }
+    run_round_trip_test(data);
+}
+
+TEST_F(ArchiverTest, compression_ratio_efficiency) {
+    std::vector<char> data(20000, 'X');
+    create_file(input_file, data);
+
+    Compressor comp(input_file, archive_file);
+    comp.compress();
+
+    ASSERT_TRUE(std::filesystem::exists(archive_file));
+    EXPECT_LT(std::filesystem::file_size(archive_file), std::filesystem::file_size(input_file) / 2);
+
+    Decompressor decomp(archive_file, output_file);
+    decomp.decompress();
+    EXPECT_TRUE(files_are_equal(input_file, output_file));
+}
+
+TEST_F(ArchiverTest, throwing_corrupted_archive) {
+    std::vector<char> corrupted_header = {'B', 'A', 'D', '!', 0x01, 0x02, 0x03};
+    create_file(archive_file, corrupted_header);
+    EXPECT_THROW({
+        Decompressor decomp(archive_file, output_file);
+        decomp.decompress();
+    }, std::exception);
+}
