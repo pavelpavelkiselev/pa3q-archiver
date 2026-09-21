@@ -6,8 +6,7 @@
     cmake --build . --config Release --target pa3q
     cmake --build . --config Debug --target pa3q_tests
 ### Linux/MacOS:
-    mkdir build
-    cd build
+    mkdir build && cd build
     cmake -DCMAKE_BUILD_TYPE=Release ..
     cmake --build .
 ### Linux (Make):
@@ -22,7 +21,7 @@ On Linux (if Make used) executable file is located in **./bin/**  <br>
     .\build\bin\Debug\pa3q_tests.exe
 ### On Linux, MacOS:
     ./build/bin/pa3q_tests
-### Linux (Make, gtest module needs to be installed):
+### Linux (Make):
     make test MODE=debug
 
 ## Verifying integer arithmetic module with Frama-C:
@@ -30,7 +29,7 @@ On Linux (if Make used) executable file is located in **./bin/**  <br>
     frama-c arithmetic.h -wp -wp-rte -wp-timeout 10 -wp-prover alt-ergo -then -report
 
 <br>From 57 specifications 56 are Completely validated and 1 is Considered valid
-(Stretch LUT monotonicity is taken as an axiom). Instead of Alt-Ergo, any other SMT solver can be used (e.g., CVC5 and Z3).
+(Stretch LUT monotonicity is taken as an axiom). Instead of Alt-Ergo, any other SMT solver can be used (e.g., CVC5 and Z3). Integer arithmetic implementation is located at file ./src/arithmetic.h
 
 ## How to use:
 ### To compress:

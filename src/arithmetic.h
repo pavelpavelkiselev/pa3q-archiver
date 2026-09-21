@@ -64,7 +64,15 @@ inline int64_t clamp_w(const int64_t num) {
 }
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern const int32_t stretch_lut[65537];
+
+#ifdef __cplusplus
+}
+#endif
 
 
 /*@
