@@ -6,65 +6,75 @@
 #include "predictor.hpp"
 
 uint16_t Predictor::next_bit_probability() {
-    p0_order0 = static_cast<uint16_t>(((static_cast<uint32_t>(count0[context][0]) + 1) << 16) / 
-        (static_cast<uint32_t>(count0[context][0]) + static_cast<uint32_t>(count0[context][1]) + 2));
+    prob_o0 =
+        static_cast<uint16_t>(((static_cast<uint32_t>(count_o0[current_context][0]) + 1) << 16) /
+                              (static_cast<uint32_t>(count_o0[current_context][0]) +
+                               static_cast<uint32_t>(count_o0[current_context][1]) + 2));
 
-    p0_order1 = static_cast<uint16_t>(((static_cast<uint32_t>(count1[prev1][context][0]) + 1) << 16) / 
-        (static_cast<uint32_t>(count1[prev1][context][0]) + static_cast<uint32_t>(count1[prev1][context][1]) + 2));
-    
-    p0_order2 = static_cast<uint16_t>(((static_cast<uint32_t>(count2[prev2][context][0]) + 1) << 16) / 
-        (static_cast<uint32_t>(count2[prev2][context][0]) + static_cast<uint32_t>(count2[prev2][context][1]) + 2));
+    prob_o1 = static_cast<uint16_t>(
+        ((static_cast<uint32_t>(count_o1[context_o1][current_context][0]) + 1) << 16) /
+        (static_cast<uint32_t>(count_o1[context_o1][current_context][0]) +
+         static_cast<uint32_t>(count_o1[context_o1][current_context][1]) + 2));
 
-    s0 = stretch(p0_order0);
-    s1 = stretch(p0_order1);
-    s2 = stretch(p0_order2);
+    prob_o2 = static_cast<uint16_t>(
+        ((static_cast<uint32_t>(count_o2[context_o2][current_context][0]) + 1) << 16) /
+        (static_cast<uint32_t>(count_o2[context_o2][current_context][0]) +
+         static_cast<uint32_t>(count_o2[context_o2][current_context][1]) + 2));
 
-    // 32768 = 2^15, difference between 2^40 and 2^25 weights' scales
-    mx = ((w0 / 32768) * (static_cast<int64_t>(s0)) + 
-        (w1 / 32768) * (static_cast<int64_t>(s1)) + 
-        (w2 / 32768) * (static_cast<int64_t>(s2))) / 33554432; // 3355432 = 2^25
-    // weights' scale is 2^25, not 2^27, because weights' range is [-48; 48], not [-12; 12]
-    // Every multiplying number is in range [-1610612736; 1610612736], no int64_t overflow.
+    stretched_o0 = stretch(prob_o0);
+    stretched_o1 = stretch(prob_o1);
+    stretched_o2 = stretch(prob_o2);
 
-    mixed_p0 = squash(clamp_s(mx));
+    mixed_stretched = ((weight_o0 >> 15) * (static_cast<int64_t>(stretched_o0)) +
+                       (weight_o1 >> 15) * (static_cast<int64_t>(stretched_o1)) +
+                       (weight_o2 >> 15) * (static_cast<int64_t>(stretched_o2))) >> 25;
+    // Weights are firstly scaled from 2^40 to 2^25 to prevent int64_t overflow.
 
-    return mixed_p0;
+    final_prob = squash(clamp_s(mixed_stretched));
+
+    return final_prob;
 }
 
 void Predictor::update_model(const bool bit) {
     const int64_t y_0 = ((bit == false) ? (65536) : (0)); // 16 bit scale.
-    const int64_t error = y_0 - mixed_p0;
+    const int64_t error = y_0 - final_prob;
 
-    // 8192 = 2^13; difference in scale between weights and stretched probabilities (2^40 and 2^27)
-    // 16777216 = 2^16 * 2^8; error's scale and learning_rate
-    w0 = clamp_w(w0 + clamp_w(((static_cast<int64_t>(s0) * 8192) * error) / 16777216));
-    w1 = clamp_w(w1 + clamp_w(((static_cast<int64_t>(s1) * 8192) * error) / 16777216));
-    w2 = clamp_w(w2 + clamp_w(((static_cast<int64_t>(s2) * 8192) * error) / 16777216));
+    // 2^13 - scale difference between weights (2^40) and stretched probabilities (2^40)
+    weight_o0 = clamp_w(weight_o0 + clamp_w(((static_cast<int64_t>(stretched_o0) << 13) * error) >>
+                                            (16 + learning_rate_bits)));
+    weight_o1 = clamp_w(weight_o1 + clamp_w(((static_cast<int64_t>(stretched_o1) << 13) * error) >>
+                                            (16 + learning_rate_bits)));
+    weight_o2 = clamp_w(weight_o2 + clamp_w(((static_cast<int64_t>(stretched_o2) << 13) * error) >>
+                                            (16 + learning_rate_bits)));
 
-    // Contexts' count halving.
-    count0[context][bit] += 1;
-    if ((count0[context][0] + count0[context][1] + 2) >= 0xFFFF) {
-        count0[context][0] /= 2;
-        count0[context][1] /= 2;
+    // Update context counts
+    count_o0[current_context][bit] += 1;
+    count_o1[context_o1][current_context][bit] += 1;
+    count_o2[context_o2][current_context][bit] += 1;
+
+    // Halving context count
+    if ((count_o0[current_context][0] + count_o0[current_context][1] + 2) >= 0xFFFF) {
+        count_o0[current_context][0] /= 2;
+        count_o0[current_context][1] /= 2;
     }
 
-    count1[prev1][context][bit] += 1;
-    if ((count1[prev1][context][0] + count1[prev1][context][1] + 2) >= 0xFFFF) {
-        count1[prev1][context][0] /= 2;
-        count1[prev1][context][1] /= 2;
+    if ((count_o1[context_o1][current_context][0] + count_o1[context_o1][current_context][1] + 2) >=
+        0xFFFF) {
+        count_o1[context_o1][current_context][0] /= 2;
+        count_o1[context_o1][current_context][1] /= 2;
     }
 
-    count2[prev2][context][bit] += 1;
-    if ((count2[prev2][context][0] + count2[prev2][context][1] + 2) >= 0xFFFF) {
-        count2[prev2][context][0] /= 2;
-        count2[prev2][context][1] /= 2;
+    if ((count_o2[context_o2][current_context][0] + count_o2[context_o2][current_context][1] + 2) >=
+        0xFFFF) {
+        count_o2[context_o2][current_context][0] /= 2;
+        count_o2[context_o2][current_context][1] /= 2;
     }
 
-    context = (context << 1) + bit;
-    if (context >= 0x100) {
-        context &= 0xFF;
-        prev2 = (prev2 << 8) | prev1;
-        prev1 = static_cast<uint8_t>(context);
-        context = 1;
+    current_context = (current_context << 1) + bit;
+    if (current_context >= 0x100) {
+        current_context &= 0xFF;
+        context_o2 = (context_o2 << 8) | context_o1;
+        context_o1 = static_cast<uint8_t>(current_context);
+        current_context = 1;
     }
 }
