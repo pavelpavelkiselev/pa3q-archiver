@@ -1,5 +1,6 @@
 var dir_68267d1309a1af8e8297ef4c3efbcdba =
 [
+    [ "arithmetic.h", "arithmetic_8h_source.html", null ],
     [ "compressor.cpp", "compressor_8cpp.html", null ],
     [ "compressor.hpp", "compressor_8hpp.html", "compressor_8hpp" ],
     [ "decompressor.cpp", "decompressor_8cpp.html", null ],
