@@ -6,36 +6,42 @@
 #include "predictor.hpp"
 
 uint16_t Predictor::next_bit_probability() {
-    p0_order0 =
-        static_cast<double>(count0[context][0] + 1) / (count0[context][0] + count0[context][1] + 2);
-    p0_order1 = static_cast<double>(count1[prev1][context][0] + 1) /
-                (count1[prev1][context][0] + count1[prev1][context][1] + 2);
-    p0_order2 = static_cast<double>(count2[prev2][context][0] + 1) /
-                (count2[prev2][context][0] + count2[prev2][context][1] + 2);
+    p0_order0 = static_cast<uint16_t>(((static_cast<uint32_t>(count0[context][0]) + 1) << 16) / 
+        (static_cast<uint32_t>(count0[context][0]) + static_cast<uint32_t>(count0[context][1]) + 2));
 
-    s0 = stretch(clamp_p(p0_order0));
-    s1 = stretch(clamp_p(p0_order1));
-    s2 = stretch(clamp_p(p0_order2));
+    p0_order1 = static_cast<uint16_t>(((static_cast<uint32_t>(count1[prev1][context][0]) + 1) << 16) / 
+        (static_cast<uint32_t>(count1[prev1][context][0]) + static_cast<uint32_t>(count1[prev1][context][1]) + 2));
+    
+    p0_order2 = static_cast<uint16_t>(((static_cast<uint32_t>(count2[prev2][context][0]) + 1) << 16) / 
+        (static_cast<uint32_t>(count2[prev2][context][0]) + static_cast<uint32_t>(count2[prev2][context][1]) + 2));
 
-    mx = w0 * s0 + w1 * s1 + w2 * s2;
+    s0 = stretch(p0_order0);
+    s1 = stretch(p0_order1);
+    s2 = stretch(p0_order2);
 
-    mixed_p0 = clamp_m(squash(mx));
+    // 32768 = 2^15, difference between 2^40 and 2^25 weights' scales
+    mx = ((w0 / 32768) * (static_cast<int64_t>(s0)) + 
+        (w1 / 32768) * (static_cast<int64_t>(s1)) + 
+        (w2 / 32768) * (static_cast<int64_t>(s2))) / 33554432; // 3355432 = 2^25
+    // weights' scale is 2^25, not 2^27, because weights' range is [-48; 48], not [-12; 12]
+    // Every multiplying number is in range [-1610612736; 1610612736], no int64_t overflow.
 
-    return static_cast<uint16_t>(mixed_p0 * 65535.0);
+    mixed_p0 = squash(clamp_s(mx));
+
+    return mixed_p0;
 }
 
 void Predictor::update_model(const bool bit) {
-    const double y_0 = ((bit == false) ? (1.0) : (0.0));
-    const double error = y_0 - mixed_p0;
+    const int64_t y_0 = ((bit == false) ? (65536) : (0)); // 16 bit scale.
+    const int64_t error = y_0 - mixed_p0;
 
-    w0 += learning_rate * error * s0;
-    w1 += learning_rate * error * s1;
-    w2 += learning_rate * error * s2;
+    // 8192 = 2^13; difference in scale between weights and stretched probabilities (2^40 and 2^27)
+    // 16777216 = 2^16 * 2^8; error's scale and learning_rate
+    w0 = clamp_w(w0 + clamp_w(((static_cast<int64_t>(s0) * 8192) * error) / 16777216));
+    w1 = clamp_w(w1 + clamp_w(((static_cast<int64_t>(s1) * 8192) * error) / 16777216));
+    w2 = clamp_w(w2 + clamp_w(((static_cast<int64_t>(s2) * 8192) * error) / 16777216));
 
-    w0 = clamp_w(w0);
-    w1 = clamp_w(w1);
-    w2 = clamp_w(w2);
-
+    // Contexts' count halving.
     count0[context][bit] += 1;
     if ((count0[context][0] + count0[context][1] + 2) >= 0xFFFF) {
         count0[context][0] /= 2;
