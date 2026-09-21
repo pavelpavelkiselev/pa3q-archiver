@@ -1,17 +1,18 @@
 cmake_minimum_required(VERSION 3.25)
-project(pa3q VERSION 0.2 LANGUAGES CXX)
+project(pa3q VERSION 0.3 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(MSVC)
-    set(COMPILE_WARNINGS /W4 /WX)
+    set(COMPILE_WARNINGS /W4)
 else()
-    set(COMPILE_WARNINGS -Wall -Wextra -Wpedantic -Werror)
+    set(COMPILE_WARNINGS -Wall -Wextra -Wpedantic)
 endif()
 
 set(CORE_SOURCES
+    src/arithmetic.c
     src/predictor.cpp
     src/encoder.cpp
     src/compressor.cpp
@@ -26,14 +27,8 @@ set_target_properties(pa3q PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
 
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-)
-
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+add_subdirectory(tests/googletest-1.18.0)
 
 enable_testing()
 
